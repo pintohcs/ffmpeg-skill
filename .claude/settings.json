@@ -1,10 +1,16 @@
 {
   "extraKnownMarketplaces": {
     "trailofbits": {
-      "source": { "source": "github", "repo": "trailofbits/skills" }
+      "source": {
+        "source": "github",
+        "repo": "trailofbits/skills"
+      }
     },
     "anthropic-agent-skills": {
-      "source": { "source": "github", "repo": "anthropics/skills" }
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
     }
   },
   "enabledPlugins": {
@@ -16,5 +22,18 @@
     "post-patch-validation@trailofbits": true,
     "document-skills@anthropic-agent-skills": true,
     "example-skills@anthropic-agent-skills": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/skill_md_budget.py"
+          }
+        ]
+      }
+    ]
   }
 }
